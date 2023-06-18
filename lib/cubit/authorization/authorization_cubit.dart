@@ -27,11 +27,11 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
     var response = await AuthManager.auth(auth);
     if (response.statusCode<300) {
       code = response.body;
-      emit(AuthorizationAuthorizedState());
+      emit(AuthorizationConfirmState());
     }
     else
     {
-      Fluttertoast.showToast(msg: "Данный Email или логин уже занят!");
+      Fluttertoast.showToast(msg: "Неверный адрес электронной почты или пароль!");
     }
   }
 
@@ -39,12 +39,22 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
     var confirm = ConfirmModel(code: code!, emailCode: emailCode.text);
     var response = await AuthManager.conf(confirm);
     if (response.statusCode<300) {
-      TempData.token = response.body;
-      emit(AuthorizationConfirmState());
+      await TempData.storeToken(response.body);
+      emit(AuthorizationAuthorizedState());
     }
     else
     {
       Fluttertoast.showToast(msg: "Введён неверный код!");
     }
+  }
+
+  Future<void> tryLoad() async {
+    await TempData.restoreToken();
+    print(TempData.token);
+    if(TempData.token!=""){
+      emit(AuthorizationAuthorizedState());
+      return;
+    }
+    await readyState();
   }
 }

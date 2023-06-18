@@ -38,7 +38,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     var confirm = ConfirmModel(code: code!, emailCode: emailCode.text);
     var response = await AuthManager.conf(confirm);
     if (response.statusCode<300) {
-      TempData.token = response.body;
+      await TempData.storeToken(response.body);
       emit(RegistrationAuthorizedState());
     }
     else

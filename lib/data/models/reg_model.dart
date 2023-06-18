@@ -5,10 +5,9 @@ class RegModel{
 
   RegModel({required this.email, required this.username, required this.password});
 
-  Map<String,dynamic> toJson()=>{
+  Map<String, dynamic> toJson()=>{
     "email":email,
     "username":username,
     "password":password
   };
-
 }

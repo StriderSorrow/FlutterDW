@@ -1,13 +1,15 @@
-import 'package:dw_front/ui/pages/character.dart';
+import 'package:dw_front/ui/screens/scenario/scenario.dart';
+import 'package:dw_front/ui/screens/team_add/team_add.dart';
+import 'package:dw_front/ui/screens/project_add/project_add.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dw_front/cubit/navigation/cubit.dart';
-import 'package:dw_front/ui/pages/authorization.dart';
-import 'package:dw_front/ui/pages/project.dart';
-import 'package:dw_front/ui/pages/registration.dart';
-import 'package:dw_front/ui/pages/user.dart';
-import 'package:dw_front/ui/pages/team.dart';
-import 'package:dw_front/ui/pages/team_list.dart';
+import 'package:dw_front/ui/screens/authorization/authorization.dart';
+import 'package:dw_front/ui/screens/project/project.dart';
+import 'package:dw_front/ui/screens/registration/registration.dart';
+import 'package:dw_front/ui/screens/user/user.dart';
+import 'package:dw_front/ui/screens/team/team.dart';
+import 'package:dw_front/ui/screens/team_list/team_list.dart';
 
 
 class AppNavigator extends StatelessWidget {
@@ -29,12 +31,14 @@ class AppNavigator extends StatelessWidget {
             const MaterialPage(child: Team()),
           if (state is NavigationTeamListState)
             const MaterialPage(child: TeamList()),
+          if (state is NavigationTeamAddState)
+            const MaterialPage(child: TeamAdd()),
+          if (state is NavigationProjectAddState)
+            const MaterialPage(child: ProjectAdd()),
           if (state is NavigationProjectState)
             const MaterialPage(child: Project()),
-          if (state is NavigationCharacterState)
-            const MaterialPage(child: Character()),
-          // if (state is NavigationTrackListState)
-          //   const MaterialPage(child: TrackList()),
+          if (state is NavigationScenarioState)
+            const MaterialPage(child: Scenario()),
         ],
         onPopPage: (route, result) {
           return route.didPop(result);

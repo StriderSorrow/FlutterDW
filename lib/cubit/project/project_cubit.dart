@@ -1,5 +1,5 @@
+import 'package:dw_front/cubit/project/project_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'project_state.dart';
 
 class ProjectCubit extends Cubit<ProjectState> {
   ProjectCubit() : super(ProjectEmptyState());
